@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script
+    src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+    defer
+  ></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@1.2.x/dist/scroll.min.js" defer></script>
+  
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Clara Luciani | Concert</title>
+</head>
+<body class="bg-gray-100">
+    <!-- navBar -->
+    <nav class="fixed z-10 flex items-center justify-end w-full h-20 pr-4 space-x-3 list-none bg-white shadow md:h-24 md:pr-6">
+        <a href="" class="absolute left-0 pl-2 text-xl font-semibold tracking-wider cursor-pointer text-cyan-900 md:pl-6 md:text-3xl">CLARA LUCIANI</a>
+        <ul class="flex-row hidden gap-2 md:flex">
+            <li><i class="text-blue-500 duration-1000 cursor-pointer fab fa-facebook size hover:scale-110 fa-xl"></i></li>
+            <li><i class="duration-1000 cursor-pointer fab fa-twitter size text-sky-500 hover:scale-110 fa-xl"></i></li>
+            <li><i class="text-pink-500 duration-1000 cursor-pointer fab fa-instagram size hover:scale-110 fa-xl"></i></li>
+        </ul>
+        <div class="flex md:hidden">
+            <input type="checkbox" id="checkbox" class="relative w-10 h-10 appearance-none">
+        
+            <div class="menu">
+        
+                <a href="">
+                    <div class="w-10 h-10 border-l menuItems"><i class="text-blue-500 fab fa-facebook fa-xl"></i></div>
+                </a>
+                <a href="">
+                    <div class="w-10 h-10 border-l menuItems"><i class="fab fa-twitter text-sky-500 fa-xl"></i></div>
+                </a>
+                <a href="">
+                    <div class="w-10 h-10 border-l menuItems"><i class="text-pink-500 fab fa-instagram fa-xl"></i></div>
+                </a>
+        
+            </div>
+        
+        </div>  
+    </nav>
+    <div class="w-full h-20 bg-white shadow md:h-24"></div>
+
+    <!-- Banderole-->
+    <div class="relative w-full pt-16 pl-20 border-b h-80 bg-gradient-to-b from-black via-cyan-800 to-cyan-900 md:pt-10 md:pl-10 md:flex">
+
+        <!-- img Box-->
+        <div class="w-48 h-48 bg-black md:h-64 md:w-64">
+            <img src="./clara-luciani.jpg" alt="clara luciani">
+        </div>
+
+        <div class="ml-0 md:ml-6">
+        <!-- title Box-->
+        <p class="absolute pb-6 text-lg font-semibold tracking-wide text-white top-4 left-14 md:relative md:top-0 md:left-0 md:text-3xl md:pb-6">TOURNEE - PREMIERE PARTIE</p>
+        <!-- text Box -->
+        <div class="hidden leading-10 md:contents">
+            <p class="text-white"><i class="fas fa-calendar-days"></i> 06/10/2022 ~ 31/01/2023</p>
+            <p class="text-white"><i class="fas fa-location-dot"></i> Divers lieux</p>
+            <p class="text-white"><i class="fas fa-info-circle"></i>  22 événements</p>
+            <i class="text-yellow-500 fas fa-star"></i>
+            <i class="text-yellow-500 fas fa-star"></i> 
+            <i class="text-yellow-500 fas fa-star"></i> 
+            <i class="text-yellow-500 fas fa-star-half-stroke"></i>
+            <i class="text-yellow-500 far fa-star"></i> 
+            <span class="font-medium text-blue-400 underline cursor-pointer hover:text-blue-500"> 340</span>
+        </div>
+        </div>
+    </div>
+    <p class="absolute text-sm text-white left-4 top-96 -translate-y-9 md:hidden"><i class="fas fa-calendar-days"></i> 06/10/2022 ~ 31/014/2023  |  22 événements</p>
+
+    <p class="md:hidden"><i class="absolute text-sm text-yellow-500 -translate-y-2 fas fa-star left-4 top-96"></i></p>
+    <p class="md:hidden"><i class="absolute text-sm text-yellow-500 -translate-y-2 fas fa-star left-9 top-96"></i></p>
+    <p class="md:hidden"><i class="absolute text-sm text-yellow-500 -translate-y-2 fas fa-star left-13 top-96"></i></p> 
+    <p class="md:hidden"><i class="absolute text-sm text-yellow-500 -translate-y-2 fas fa-star-half-stroke left-18 top-96"></i></p>
+    <p class="md:hidden"><i class="absolute text-sm text-yellow-500 -translate-y-2 far fa-star left-22 top-96"></i></p>
+    <span class="absolute font-medium text-blue-400 underline -translate-y-3.5 cursor-pointer md:hidden hover:text-blue-500 left-32 top-96"> 340</span>
+
+
+     <div x-data="loadEmployees()">
+    <div class="flex flex-col-reverse gap-4 pt-2 pl-2 md:pt-4 md:gap-8 md:flex-row">
+        <div class="w-64 h-24 border border-gray-300 rounded shadow-sm md:h-28 bg-slate-50">
+            <p class="pt-3 pl-2 text-sm font-semibold tracking-widest text-gray-800">Ville</p>
+            <input x-ref="searchField"
+            x-model="search"
+            x-on:keydown.window.prevent.slash="$refs.searchField.focus()"
+            @keydown.enter="$refs.btn.click()"
+            type="search" 
+            class="w-36 text-cyan-900 tracking-wider border bg-gray-100 focus:outline-none focus:bg-white focus:shadow rounded p-1 px-2 mt-2 ml-2 font-sans font-medium" 
+            placeholder="EX: paris" x-model="search">
+            
+            <button class="p-1 px-4 text-white bg-gray-600 border rounded hover:bg-cyan-900"
+            x-on:click="$scroll($refs.foo, {behavior: 'auto'})"
+            x-ref="btn"
+            >Filtrer</button>
+            
+
+        </div>
+        <div class="h-20 p-2 text-sm font-normal leading-7 text-gray-500 bg-white border border-red-500 rounded animate-pulse w-80 md:font-medium md:w-82">
+            <p>Places presque toutes réservez, dépéchez-vous !</p>
+            <p>Meilleure vente: Marseille le <b>08 Octobre 2022</b></p>
+        </div>
+    </div>
+
+ 
+        
+        <template x-for="item in filteredEmployees" :key="item">
+            <div class="flex flex-col max-w-3xl mx-2 my-3 tracking-wide bg-white rounded shadow md:flex-row h-52 md:h-40" id="foo">
+                <!-- first part -->
+                <div class="flex-col items-center justify-center hidden px-10 border-r md:flex">
+                <p x-text="item.weekDays" class="text-gray-500"></p>
+                <p x-text="item.days" class="font-mono text-4xl font-semibold text-cyan-900"></p>
+                <p x-text="item.months+ '.' + ' '+ item.years" class="font-semibold text-gray-500"></p>
+                <p x-text="item.hours" class="text-gray-500"></p>
+                </div>
+                <!-- mobile -->
+                <div class="flex items-center justify-center w-full h-10 gap-2 p-4 font-medium text-gray-500 border border-t-0 border-x-0 md:hidden">
+                    <i class="fas fa-calendar"></i>
+                    <p x-text="item.weekDays+ ' '+ item.days+ ' '+ item.months+ '.'+ ' '+ item.years+ ' '+ ' à '+ item.hours"
+                    class=""></p>
+                </div>
+                <!-- second part -->
+                <div class="relative pt-2 pl-4 leading-8 md:p-4 md:pt-4">
+                    <p x-text="item.town" class="text-xl font-semibold text-cyan-900"></p>
+                    <p class="text-gray-500">Avec: <span x-text="item.artist" class="font-medium text-cyan-900"></span></p>
+                    <p x-text="item.location" class="font-serif text-gray-500"></p>
+                    <i class="absolute text-gray-500 fas fa-print top-2 right-2 md:static"></i>
+                </div>
+                <!-- thirth part -->
+                <div class="flex items-center justify-end gap-3 pt-3 pr-4 md:pt-16 md:pr-0 md:pl-44 md:p-3 md:block">
+                    <p class="my-2 text-base font-medium text-cyan-900 md:text-lg">à partir de <span x-text="item.price+ '&euro;'" class="text-lg font-medium"></span></p>
+                    <a x-bind:href="item.url"  class="px-4 py-2 text-white rounded-md md:px-8 bg-cyan-900 hover:bg-cyan-700">Réservez vite !</a>
+                </div>
+                
+            </div>
+        </template>
+    </div>
+
+    <div class="relative p-2" x-data="{ view : false, yes: true}">
+        <div class="absolute top-0.5 left-0 -translate-y-2 bg-gray-100 p-2 rounded">
+            <p class="text-lg font-semibold text-gray-700">Informations sur l'événement</p>
+        </div>
+        <div class="h-40 max-w-3xl overflow-hidden bg-white rounded" x-bind:class="{ 'h-64' : view }">
+            <br><p class="px-2 pt-3 pb-2 font-medium">Romance Musique (lic. 2-1096507) présente ce spectacle.</p>
+            <p class="px-2 leading-6 tracking-wide text-justify  text-sm text-gray-800 md:px-3">Clara Luciani en tournée en 2022. Récompensée par deux victoires de la musique en 2022 dont celle de <span x-bind:class="{'hidden' : yes== false}" class="md:hidden">...</span> <span x-bind:class="{'hidden' : yes}" class="md:inline">l'album de l'année pour Coeur, Clara Luciani est une chanteuse française incournable des années 2020. </span></p>
+            <button class="absolute font-medium underline cursor-pointer text-cyan-900 bottom-2 left-72 md:hidden" @click="view= !view, yes= !yes" x-show="view== false">Plus</button>
+            <button class="absolute pb-2 pl-4 font-medium underline cursor-pointer text-cyan-900 bottom-2 left-64 md:hidden" @click="view= !view, yes= !yes" x-show="view== true">Moins</button>
+        </div>
+        
+    </div>
+
+    <div class="relative p-2" x-data="{ see : false, no: true}">
+        <div class="absolute top-0.5 left-0 -translate-y-2 bg-gray-100 p-2 rounded">
+            <p class="text-lg font-semibold text-gray-700">Qui est CLARA LUCIANI ?</p>
+        </div>
+        <div class="h-40 max-w-3xl pb-2 overflow-hidden bg-white rounded" x-bind:class="{ 'h-new' : see }">
+            <br>
+            <p class="pt-3 pl-3 pr-3 leading-6 tracking-wide text-sm text-justify text-gray-800"><b class="font-medium">Clara Luciani </b>est une chanteuse française, auteure-compositrice et musicienne originaire des <b class="font-medium">Bouches-du-Rhones</b>.
+                Elle fait ses armes dans la musique en 2010 en tant que<span x-bind:class="{'hidden' : no== false}" class="md:hidden">...</span><span x-bind:class="{'hidden' : no== false}" class="md:hidden"><br></span> voix féminine pour le groupe La Femme. Elle suit le groupe en concert et en tournée pendant 2 ans.
+                En 2015-2016, elle accompagne sur scène le chanteur <b class="font-medium">Raphaël </b> pour sa tournée Somnambules.
+                En décembre 2016, la chanteuse chante en duo avec le rappeur <b class="font-medium">Nekfeu </b> sur son album <b class="font-medium">"Cyborg"</b>, pour Avant tu riais.
+                </p>
+            <p class="pb-4 pl-3 pr-3 leading-6 tracking-wide text-sm text-justify text-gray-800">En 2017, elle assure la première partie de <b class="font-medium">Benjamin Biolay</b> et sort un premier EP, <b class="font-medium">Monstre d'amour</b> qui est salué par la critique.
+                En 2018, Clara Luciani publie son premier album, <b class="font-medium">Sainte-Victoire</b>. Elle revendique les influences de <b class="font-medium">Françoise Hardy, Gainsbourg, Nico, Michel Legrand et Paul McCartney</b>.
+                En février 2019, elle remporte la Victoire de la musique de la révélation scène de l'année. En février 2020, Clara Luciani est récompensée d'une Victoire de la musique, dans la catégorie Artiste interprète féminine.
+                En juin 2021, Clara Luciani sort son deuxième album, Coeur porté par les singles <b class="font-medium">Le Reste, Respire encore et Sad & Slow en duo avec Julien Doré</b>.
+                Elle est de nouveau récompensée en tant qu'artiste féminine de l'année aux victoires de la musique 2022.</p>
+            <button class="absolute md:px-8 font-medium text-cyan-900 md:text-gray-600 underline cursor-pointer bottom-2 left-72 md:translate-x-80 md:bottom-3.5 md:left-96 hover:text-cyan-900" @click="see= !see, no= !no" x-show="see== false">Plus</button>
+            <button class="absolute md:px-4 font-medium text-cyan-900 md:text-gray-600 underline cursor-pointer bottom-2 left-64 px-2 md:translate-x-80 md:bottom-3.5 md:left-96 hover:text-cyan-900" @click="see= !see, no= !no" x-show="see== true">Moins</button>
+        </div>
+        
+    </div>
+
+    <div class="relative p-2" x-data="{
+        page_1: [
+            {id: 1, name: 'Cédric Vallée', town: 'Paris 06', date: '04/06/2022', comment: 'trop cool sa voix'},
+            {id: 2, name: 'Antoine  Dupont', town: 'Marseille', date: '11/06/2022', comment: 'Juste génial'},
+            {id: 3, name: 'Isabelle ferraire', town: 'Avignon', date: '14/06/2022', comment: 'trop TOP !!!'}
+        ],
+        page_2: [
+            {id: 1, name: 'Louis Valaire', town: 'Lille', date: '28/06/2022', comment: 'Cool :-)'},
+            {id: 2, name: 'Aristide Césaire', town: 'Montpelier', date: '01/07/2022', comment: 'j aime bien'},
+            {id: 3, name: 'Natalie', town: 'Gironde', date: '01/07/2022', comment: 'j adore'}
+        ],
+        page_3: [
+            {id: 1, name: 'Mégane', town: 'Toulouse', date: '07/07/2022', comment: 'Trop badass !'},
+            {id: 2, name: 'Aurelien Duval', town: 'Nantes', date: '10/07/2022', comment: ':-)'},
+            {id: 3, name: 'Amelie cazel', town: 'Le mans', date: '12/07/2022', comment: 'Magnifique'}
+        ],
+        p_1: true, p_2: false, p_3: false
+    }">
+        <div class="absolute top-0.5 left-0 -translate-y-2 bg-gray-100 p-2 rounded">
+            <p class="text-lg font-semibold text-gray-700">Avis sur Clara Luciani</p>
+        </div>
+        <div class="h-80 md:h-72 max-w-3xl overflow-hidden bg-white rounded">
+            <div class="flex gap-2 tracking-wide flex-col-reverse md:flex-row">
+                <p class="pl-36 -m-5 -translate-y-3 md:-m-0 md:-translate-y-0 md:pr-4 md:pl-48 text-gray-500 font-medium md:font-normal">28 <span class="hidden md:contents"> commentaires</span></p>
+              <div class="pl-2 md:pl-0">
+                <i class="text-yellow-500 fas fa-star"></i>
+                <i class="text-yellow-500 fas fa-star"></i> 
+                <i class="text-yellow-500 fas fa-star"></i> 
+                <i class="text-yellow-500 fas fa-star"></i>
+                <i class="text-yellow-500 far fa-star"></i>
+              </div>
+              <button class="pl-40 text-gray-500 font-semibold underline text-sm cursor-pointer hover:text-cyan-900">Rédigez votre avis</button>
+            
+            </div>
+            <template x-for="avis in page_1" :key="avis.id">
+            <div class="flex p-2 border-b mt-2"  x-show="p_1">
+                <div>
+                    <p x-text="avis.name" class="font-medium text-cyan-900"></p>
+                    <p x-text="avis.comment" class="text-gray-500 pr-12 md:pr-0"></p>
+                </div>
+                <div class="flex gap-3 ml-2 md:ml-80">
+                    <p x-text="avis.town+ ','+ ' '+ avis.date" class="font-medium text-sm md:text-base text-gray-500"></p>
+                    <div class="hidden md:inline">
+                        <i class="text-yellow-500 fas fa-star"></i>
+                        <i class="text-yellow-500 fas fa-star"></i> 
+                        <i class="text-yellow-500 fas fa-star"></i> 
+                        <i class="text-yellow-500 fas fa-star"></i>
+                        <i class="text-yellow-500 far fa-star"></i>
+              
+                    </div>
+                </div>
+            </div>
+            </template>
+            <template x-for="avis in page_2" :key="avis.id">
+                <div class="flex p-2 border-b mt-2"  x-show="p_2">
+                    <div>
+                        <p x-text="avis.name" class="font-medium text-cyan-900"></p>
+                        <p x-text="avis.comment" class="text-gray-500 pr-12 md:pr-0"></p>
+                    </div>
+                    <div class="flex gap-3 ml-2 md:ml-80">
+                        <p x-text="avis.town+ ','+ ' '+ avis.date" class="font-medium text-sm md:text-base text-gray-500"></p>
+                        <div class="hidden md:inline">
+                            <i class="text-yellow-500 fas fa-star"></i>
+                            <i class="text-yellow-500 fas fa-star"></i> 
+                            <i class="text-yellow-500 fas fa-star"></i> 
+                            <i class="text-yellow-500 fas fa-star"></i>
+                            <i class="text-yellow-500 far fa-star"></i>
+                  
+                        </div>
+                    </div>
+                </div>
+                </template>
+                <template x-for="avis in page_3" :key="avis.id">
+                    <div class="flex p-2 border-b mt-2"  x-show="p_3">
+                        <div>
+                            <p x-text="avis.name" class="font-medium text-cyan-900"></p>
+                            <p x-text="avis.comment" class="text-gray-500 pr-12 md:pr-0"></p>
+                        </div>
+                        <div class="flex gap-3 ml-2 md:ml-80">
+                            <p x-text="avis.town+ ','+ ' '+ avis.date" class="font-medium text-sm md:text-base text-gray-500"></p>
+                            <div class="hidden md:inline">
+                                <i class="text-yellow-500 fas fa-star"></i>
+                                <i class="text-yellow-500 fas fa-star"></i> 
+                                <i class="text-yellow-500 fas fa-star"></i> 
+                                <i class="text-yellow-500 fas fa-star"></i>
+                                <i class="text-yellow-500 far fa-star"></i>
+                      
+                            </div>
+                        </div>
+                    </div>
+                    </template>
+
+            <div class="flex gap-2 tracking-wider px-16 pt-4 md:px-60 md:pt-2 leading-5">
+            <button class="text-white px-2 py-0.5 hover:bg-cyan-700 bg-cyan-900 rounded-full" x-bind:class="{'bg-gray-500': p_1}" @click="p_1= true,p_2= false, p_3= false">1</button>
+            <button class="text-white px-2 py-0.5 hover:bg-cyan-700 bg-cyan-900 rounded-full" x-bind:class="{'bg-gray-500': p_2}" @click="p_2= true,p_1= false, p_3= false">2</button>
+            <button class="text-white px-2 py-0.5 hover:bg-cyan-700 bg-cyan-900 rounded-full" x-bind:class="{'bg-gray-500': p_3}" @click="p_3= true,p_2= false, p_1= false">3</button>
+            <p class="font-semibold tracking-widest">...</p>
+            <button class="text-white px-2 py-0.5 hover:bg-cyan-700 bg-cyan-900 rounded-full">suivant</button>
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <footer class="p-4 bg-white rounded-lg shadow md:px-6 md:py-8">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="" class="flex items-center mb-4 sm:mb-0">
+                <img src="./logo.png" class="h-8 mr-3 rounded" alt="logo clara-luciani">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap text-cyan-900">CLARA LUCIANI</span>
+            </a>
+            <ul class="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0">
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+                </li>
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8">
+        <span class="block text-sm text-gray-500 sm:text-center">© 2022 <a href="https://claraluciani.fr/" class="hover:underline">clara-luciani™</a>. All Rights Reserved.
+        </span>
+    </footer>
+    <script>
+        function loadEmployees() {
+            return {
+          search: "",
+          myForData: sourceData,
+          get filteredEmployees() {
+            if (this.search === "") {
+              return this.myForData;
+            }
+            return this.myForData.filter((item) => {
+              return item.town
+                .toLowerCase()
+                .includes(this.search.toLowerCase());
+            });
+          },
+        };
+      }
+  
+        var sourceData = [
+
+        {
+         id: 1,
+         weekDays: 'Jeudi',
+         days: '06',
+         months: 'Oct',
+         years: '2022',
+         hours: '20h00',
+         town: 'LYON 07',
+         artist: 'CLARA LUCIANI', 
+         location: 'Halle Tony Garnier', 
+         price: '36', url:'https://www.billetweb.fr/lyon-07-clara-luciani' 
+        },
+        {
+         id: 2, 
+         weekDays: 'Samedi', 
+         days: '08', 
+         months: 'Oct', 
+         years: '2022', 
+         hours: '20h30', 
+         town: 'MARSEILLE 04', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Dome', 
+         price: '36', 
+         url:'https://www.billetweb.fr/marseille-clara-luciani' 
+        },
+        {
+         id: 3, 
+         weekDays: 'Jeudi', 
+         days: '13', 
+         months: 'Oct', 
+         years: '2022', 
+         hours: '20h00', 
+         town: 'AMIENS', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Zénith AMIENS', 
+         price: '36', 
+         url:'https://www.billetweb.fr/amiens-clara-luciani' 
+        },
+         {
+         id: 4, 
+         weekDays: 'Vendredi', 
+         days: '14', 
+         months: 'Oct', 
+         years: '2022', 
+         hours: '20h00', 
+         town: 'LILLE', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Zénith Arena', 
+         price: '36', 
+         url:'https://www.billetweb.fr/lille-clara-luciani' 
+        },
+         {
+         id: 5, 
+         weekDays: 'Samedi', 
+         days: '15', 
+         months: 'Oct', 
+         years: '2022', 
+         hours: '20h00', 
+         town: 'LILLE', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Zénith Arena', 
+         price: '36', 
+         url:'https://www.billetweb.fr/lille-clara-luciani1' 
+        },
+         {
+         id: 6, 
+         weekDays: 'Mardi', 
+         days: '18', 
+         months: 'Oct', 
+         years: '2022', 
+         hours: '20h00', 
+         town: 'NANTES', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Zénith de NANTES', 
+         price: '36', 
+         url:'https://www.billetweb.fr/nantes-clara-luciani' 
+        },
+         {
+
+         id: 7, 
+         weekDays: 'Mercredi', 
+         days: '19', 
+         months: 'Oct', 
+         years: '2022', 
+         hours: '20h00', 
+         town: 'RENNES', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Le Liberté', 
+         price: '36', 
+         url:'https://www.billetweb.fr/rennes-clara-luciani' 
+        },
+         {
+         id: 8, 
+         weekDays: 'Jeudi', 
+         days: '20', 
+         months: 'Oct', 
+         years: '2022', 
+         hours: '20h00', 
+         town: 'LE MANS', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Antares', 
+         price: '36', 
+         url:'https://www.billetweb.fr/le-mans-clara-luciani' 
+        },
+         {
+         id: 9, 
+         weekDays: 'Vendredi', 
+         days: '04', 
+         months: 'Nov', 
+         years: '2022', 
+         hours: '20h00', 
+         town: 'TOULOUSE', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Zénith de TOULOUSE', 
+         price: '36', 
+         url:'https://www.billetweb.fr/toulouse-clara-luciani' 
+        },
+         {
+         id: 10, 
+         weekDays: 'Samedi', 
+         days: '05', 
+         months: 'Nov', 
+         years: '2022', 
+         hours: '20h00', 
+         town: 'PAU', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Zénith de PAU', 
+         price: '36', 
+         url:'https://www.billetweb.fr/pau-clara-luciani' 
+        },
+         {
+         id: 11, 
+         weekDays: 'Jeudi', 
+         days: '08', 
+         months: 'Dec', 
+         years: '2022', 
+         hours: '20h00', 
+         town: 'PARIS 12', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Accor Arena', 
+         price: '39.50', 
+         url:'https://www.billetweb.fr/paris-12-clara-luciani' 
+        },
+         {
+         id: 12, 
+         weekDays: 'Jeudi', 
+         days: '12', 
+         months: 'Jan', 
+         years: '2023', 
+         hours: '20h00', 
+         town: 'LILLE', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Zénith Arena', 
+         price: '36', 
+         url:'https://www.billetweb.fr/lille-clara-luciani2' 
+        },
+         {
+         id: 13, 
+         weekDays: 'Vendredi', 
+         days: '13', 
+         months: 'Jan', 
+         years: '2023', 
+         hours: '20h00', 
+         town: 'DIJON', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Zénith de DIJON', 
+         price: '36', 
+         url:'https://www.billetweb.fr/dijon-clara-luciani' 
+        },
+         {
+         id: 14, 
+         weekDays: 'Samedi', 
+         days: '14', 
+         months: 'Jan', 
+         years: '2023', 
+         hours: '20h00', 
+         town: 'REIMS', 
+         artist: 'CLARA LUCIANI', 
+         location: 'REIMS Arena', 
+         price: '43', 
+         url:'https://www.billetweb.fr/reims-clara-luciani' 
+        },
+         {
+         id: 15, 
+         weekDays: 'Mercredi', 
+         days: '18', 
+         months: 'Jan', 
+         years: '2023', 
+         hours: '20h30', 
+         town: 'TOULON', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Zénith de TOULON', 
+         price: '36', 
+         url:'https://www.billetweb.fr/toulon-clara-luciani' 
+        },
+         {
+         id: 16, 
+         weekDays: 'Jeudi', 
+         days: '19', 
+         months: 'Jan', 
+         years: '2023', 
+         hours: '20h30', 
+         town: 'MONTPELIER', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Sud de France Arena', 
+         price: '36', 
+         url:'https://www.billetweb.fr/montpelier-clara-luciani' 
+        },
+         {
+         id: 17, 
+         weekDays: 'Vendredi', 
+         days: '20', 
+         months: 'Jan', 
+         years: '2023', 
+         hours: '20h00', 
+         town: 'GRENOBLE', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Palais des sports', 
+         price: '36', 
+         url:'https://www.billetweb.fr/grenoble-clara-luciani' 
+        },
+         {
+         id: 18, 
+         weekDays: 'Samedi', 
+         days: '21', 
+         months: 'Jan', 
+         years: '2023', 
+         hours: '20h30', 
+         town: 'SAINT-ETIENNE', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Zénith', 
+         price: '36', 
+         url:'https://www.billetweb.fr/saint-tienne-clara-luciani1' 
+        },
+         {
+         id: 19, 
+         weekDays: 'Jeudi', 
+         days: '26', 
+         months: 'Jan', 
+         years: '2023', 
+         hours: '20h00', 
+         town: 'BREST', 
+         artist: 'CLARA LUCIANI', 
+         location: 'BREST Arena', 
+         price: '36', 
+         url:'https://www.billetweb.fr/brest-clara-luciani' 
+        },
+         {
+         id: 20, 
+         weekDays: 'Vendredi', 
+         days: '27', 
+         months: 'Jan', 
+         years: '2023', 
+         hours: '20h00', 
+         town: 'TRELAZE', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Arena Loire', 
+         price: '36', 
+         url:'https://www.billetweb.fr/trelaze-clara-luciani' 
+        },
+         {
+         id: 21, 
+         weekDays: 'Samedi', 
+         days: '28', 
+         months: 'Jan', 
+         years: '2023', 
+         hours: '20h00', 
+         town: 'CAEN', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Zénith de CAEN', 
+         price: '36', 
+         url:'https://www.billetweb.fr/caen-clara-luciani' 
+        },
+         {
+         id: 22, 
+         weekDays: 'Mardi', 
+         days: '31', 
+         months: 'Jan', 
+         years: '2023', 
+         hours: '20h00', 
+         town: 'PARIS 12', 
+         artist: 'CLARA LUCIANI', 
+         location: 'Accor Arena', 
+         price: '39.50', 
+         url:'https://www.billetweb.fr/paris-12-clara-luciani1' 
+        },
+        
+        ];
+      </script>
+</body>
+</html>
+ 
+
